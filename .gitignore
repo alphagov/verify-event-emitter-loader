@@ -1,0 +1,7 @@
+/.gradle/
+/gradle/
+/.idea/
+build/
+/configuration/*
+!/configuration/eventloader.yml.template
+/out/
