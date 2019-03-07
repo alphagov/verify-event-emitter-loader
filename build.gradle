@@ -1,0 +1,67 @@
+group 'uk.gov.verify'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+def dependencyVersions = [
+        dropwizard:"1.3.5",
+        event_emmiter: "0.0.1-58"
+]
+
+repositories {
+    if (System.getenv('VERIFY_USE_PUBLIC_BINARIES') == 'true') {
+        logger.warn('Production builds MUST NOT be built with public binaries.\nUse artifactory/whitelisted-repos for production builds.\n\n')
+        maven { url 'https://dl.bintray.com/alphagov/maven' } // For dropwizard-logstash
+        maven { url 'https://dl.bintray.com/alphagov/maven-test' } // For other public verify binaries
+        jcenter()
+    }
+    else {
+        maven { url 'https://artifactory.ida.digital.cabinet-office.gov.uk/artifactory/whitelisted-repos' }
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12',
+            'org.assertj:assertj-core:1.6.0',
+            'org.assertj:assertj-joda-time:1.1.0',
+            'org.assertj:assertj-guava:1.1.0',
+            'org.mockito:mockito-core:2.23.0',
+            'org.json:json:20170516',
+            'io.dropwizard:dropwizard-testing:' + dependencyVersions.dropwizard
+
+
+    compile 'io.dropwizard:dropwizard-core:' + dependencyVersions.dropwizard,
+            'io.dropwizard:dropwizard-client:' + dependencyVersions.dropwizard,
+            'io.dropwizard:dropwizard-auth:' + dependencyVersions.dropwizard,
+            'io.dropwizard:dropwizard-configuration:' + dependencyVersions.dropwizard,
+            'com.google.inject:guice:4.0',
+            'com.hubspot.dropwizard:dropwizard-guicier:1.0.0.6',
+            'org.bouncycastle:bcprov-ext-jdk15on:1.58',
+            'com.amazonaws:aws-encryption-sdk-java:1.3.1',
+            'uk.gov.ida:verify-event-emitter:' + dependencyVersions.event_emmiter,
+            'javax.xml.bind:jaxb-api:2.3.1',
+            'com.sun.xml.bind:jaxb-core:2.3.0.1',
+            'com.sun.xml.bind:jaxb-impl:2.3.0.1'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'uk.gov.verify.eventsystem.loader.EventLoaderApplication'
+    }
+
+    // Create a fat jar, include dependencies!
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
