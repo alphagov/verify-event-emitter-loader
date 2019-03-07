@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.gov.ida.eventemitter.Configuration;
 import uk.gov.verify.eventsystem.loader.encyption.KeyDecryptor;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Base64;
 
 public class EventEmitterConfiguration implements Configuration {
     @Valid
@@ -33,7 +35,13 @@ public class EventEmitterConfiguration implements Configuration {
     @JsonProperty
     private URI apiGatewayUrl;
 
-    private EventEmitterConfiguration() { }
+
+    private KeyDecryptor decryptor;
+    public void setKeyDecryptor(KeyDecryptor decryptor){
+        this.decryptor = decryptor;
+    }
+
+    private EventEmitterConfiguration() {}
 
     @Override
     public boolean isEnabled() { return enabled; }
@@ -55,8 +63,8 @@ public class EventEmitterConfiguration implements Configuration {
 
     @Override
     public byte[] getEncryptionKey() {
-        KeyDecryptor encryptor = new KeyDecryptor();
-        return encryptor.decryptEncryptionKey(encryptionKey);
+        if (decryptor == null) return Base64.getDecoder().decode(encryptionKey);
+        return decryptor.decryptEncryptionKey(encryptionKey);
     }
 
     @Override

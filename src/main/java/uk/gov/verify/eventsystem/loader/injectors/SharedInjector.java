@@ -1,5 +1,6 @@
 package uk.gov.verify.eventsystem.loader.injectors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -16,8 +17,8 @@ public class SharedInjector {
     public static Injector instance(Environment environment, EventLoaderConfiguration configuration){
         ImmutableSet.Builder<Module> modulesBuilder =
             ImmutableSet.<Module>builder()
-                .add(new EventEmitterModule())
                 .add(new EventLoaderModule())
+                .add(new EventEmitterModule())
                 .add(new Module() {
                     @Override
                     public void configure(final Binder binder) {

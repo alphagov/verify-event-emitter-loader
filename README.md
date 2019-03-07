@@ -46,13 +46,13 @@ You can use the `tools/assume-role.py` tool in the `alphagov/verify-event-infras
 To create a single event in the queue:
 
 ```bash
-java -jar build/libs/event-creator-1.0-SNAPSHOT-all.jar create -t <event_type> -d '<session details as JSON >' -s "<session_id>" -o "<originating_service>" [ --timestamp "<timestamp as YYYY-MM-ddTHH:mm:ss.iiiZ>" ] <path to config file>
+java -jar build/libs/event-creator-1.0-SNAPSHOT-all.jar create -t <event_type> -d '<session details as JSON >' -s "<session_id>" -o "<originating_service>" [ --timestamp "<timestamp as YYYY-MM-ddTHH:mm:ss.iiiZ>" ] -c <path to config file>
 ```
 
 
 For example:
 ```bash
-java -jar build/libs/event-creator-1.0-SNAPSHOT-all.jar create -t session_event -d '{"session_event_type": "idp_authn_success"}' -s "b6289a9f-1b01-49ec-b3be-cd0aa501e280" -o "policy" --timestamp "2019-01-01T06:30:00.000Z" configuration/eventloader.yml
+java -jar build/libs/event-creator-1.0-SNAPSHOT-all.jar create -t session_event -d '{"session_event_type": "idp_authn_success"}' -s "b6289a9f-1b01-49ec-b3be-cd0aa501e280" -o "policy" --timestamp "2019-01-01T06:30:00.000Z" -c configuration/eventloader.yml
 ```
 
 The `eventId` is automatically generated and if not specified on the command line, the `timestamp` field
@@ -66,6 +66,7 @@ JSON representations of the events, for example:
 ```json
 [
   {
+    "eventId": "b27fb3f0-c955-429d-9a53-e3ece111fd20",
     "timestamp": 1546324200000,
     "event_type": "session_event",
     "originating_service": "policy",
@@ -81,6 +82,7 @@ JSON representations of the events, for example:
     }
   },
   {
+    "eventId": "9b940355-36db-44b4-bee8-b13de18ae150",
      "timestamp": 1546324200000,
      "event_type": "session_event",
      "originating_service": "policy",

@@ -6,6 +6,7 @@ import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import uk.gov.verify.eventsystem.loader.commands.CreateEventCommand;
+import uk.gov.verify.eventsystem.loader.commands.LoadEventsCommand;
 import uk.gov.verify.eventsystem.loader.configuration.EventLoaderConfiguration;
 
 public class EventLoaderApplication extends Application<EventLoaderConfiguration> {
@@ -22,6 +23,7 @@ public class EventLoaderApplication extends Application<EventLoaderConfiguration
                 )
         );
         bootstrap.addCommand(new CreateEventCommand(this));
+        bootstrap.addCommand(new LoadEventsCommand(this));
     }
 
     @Override

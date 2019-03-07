@@ -20,7 +20,12 @@ public class CreateEventCommand extends EnvironmentCommand<EventLoaderConfigurat
 
     @Override
     public void configure(Subparser subparser) {
-        super.configure(subparser);
+        subparser.addArgument("-c", "--config")
+                .dest("file")
+                .type(String.class)
+                .nargs("?")
+                .required(true)
+                .help("The file containing the application configuration");
         subparser.addArgument("-t", "--eventType")
                 .dest("eventType")
                 .type(String.class)
@@ -30,7 +35,7 @@ public class CreateEventCommand extends EnvironmentCommand<EventLoaderConfigurat
                 .dest("details")
                 .type(String.class)
                 .required(true)
-                .help("The value of the details field of the event");
+                .help("The value of the details field of the event, represent as JSON");
         subparser.addArgument("-s", "--sessionId")
                 .dest("sessionId")
                 .type(String.class)
@@ -52,7 +57,6 @@ public class CreateEventCommand extends EnvironmentCommand<EventLoaderConfigurat
     @Override
     public void run(Environment environment, Namespace namespace, EventLoaderConfiguration configuration) throws Exception {
         Injector injector = SharedInjector.instance(environment, configuration);
-
         EventEmitter eventEmitter = injector.getInstance(EventEmitter.class);
 
         SingleEventFromNamespace generator = new SingleEventFromNamespace(namespace);

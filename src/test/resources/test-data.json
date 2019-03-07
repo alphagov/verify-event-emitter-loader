@@ -1,0 +1,36 @@
+[
+  {
+    "eventId": "b27fb3f0-c955-429d-9a53-e3ece111fd20",
+    "timestamp": 1546324200000,
+    "eventType": "session_event",
+    "originatingService": "policy",
+    "sessionId": "b6289a9f-1b01-49ec-b3be-cd0aa501e280",
+    "details": {
+      "message_id": "_12345678901234567890ABCDEF123456",
+      "request_id": "_12345678901234567890ABCDEF123456",
+      "session_event_type": "session_started",
+      "session_expiry_time": "2019-01-01T12:00:00.000Z",
+      "transaction_entity_id": "https://idp-entity-id",
+      "minimum_level_of_assurance": "LEVEL_2",
+      "required_level_of_assurance": "LEVEL_2",
+      "principal_ip_address_as_seen_by_hub": "111.222.222.111 10.0.0.1"
+    }
+  },
+  {
+    "eventId": "9b940355-36db-44b4-bee8-b13de18ae150",
+    "timestamp": 1546324220000,
+    "eventType": "session_event",
+    "originatingService": "policy",
+    "sessionId": "b6289a9f-1b01-49ec-b3be-cd0aa501e280",
+    "details": {
+      "message_id": "_12345678901234567890ABCDEF123456",
+      "request_id": "_12345678901234567890ABCDEF123456",
+      "session_event_type": "idp_selected",
+      "session_expiry_time": "2019-01-01T12:00:00.000Z",
+      "transaction_entity_id": "https://idp-entity-id",
+      "minimum_level_of_assurance": "LEVEL_2",
+      "required_level_of_assurance": "LEVEL_2",
+      "principal_ip_address_as_seen_by_hub": "111.222.222.111 10.0.0.1"
+    }
+  }
+]
