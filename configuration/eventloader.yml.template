@@ -1,0 +1,7 @@
+eventEmitterConfiguration:
+  enabled: ${EVENT_EMITTER_ENABLED:-true}
+  accessKeyId: ${API_GATEWAY_AWS_ACCESS_KEY_ID}
+  secretAccessKey: ${API_GATEWAY_AWS_SECRET_ACCESS_KEY}
+  region: ${AWS_REGION}
+  encryptionKey: ${EVENT_EMITTER_ENCRYPTION_KEY}
+  apiGatewayUrl: ${EVENT_EMITTER_API_GATEWAY_URL}

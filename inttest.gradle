@@ -1,0 +1,22 @@
+sourceSets {
+    integrationTest {
+        java {
+            srcDir 'src/integration-test/java'
+        }
+        resources {
+            srcDir 'src/integration-test/resources'
+        }
+        compileClasspath += sourceSets.main.runtimeClasspath
+        compileClasspath += sourceSets.test.runtimeClasspath
+        runtimeClasspath += configurations.testCompile
+    }
+}
+
+task intTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath += sourceSets.integrationTest.runtimeClasspath
+    reports.junitXml.destination = file("${project.buildDir}/int-test-results")
+    reports.html.destination = file("${project.buildDir}/int-test-reports")
+    workingDir = rootDir
+    include 'uk/gov/verify/eventsystem/loader/integrationtest/**'
+}
