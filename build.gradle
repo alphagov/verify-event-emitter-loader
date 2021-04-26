@@ -1,30 +1,21 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+apply plugin: 'java'
+
 group 'uk.gov.verify'
 version '1.0-SNAPSHOT'
 
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
-    }
-}
-
-apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'java'
-
 def dependencyVersions = [
         dropwizard:"1.3.5",
-        event_emmiter: "0.0.1-58"
+        event_emmiter: "2.0.0-83"
 ]
 
 repositories {
     if (System.getenv('VERIFY_USE_PUBLIC_BINARIES') == 'true') {
         logger.warn('Production builds MUST NOT be built with public binaries.\nUse artifactory/allowed-repos for production builds.\n\n')
-        maven { url 'https://dl.bintray.com/alphagov/maven' } // For dropwizard-logstash
-        maven { url 'https://dl.bintray.com/alphagov/maven-test' } // For other public verify binaries
-        jcenter()
+        mavenCentral()
     }
     else {
         maven { url 'https://gds.jfrog.io/artifactory/allowed-repos' }
@@ -49,6 +40,7 @@ dependencies {
             'com.hubspot.dropwizard:dropwizard-guicier:1.0.0.6',
             'org.bouncycastle:bcprov-ext-jdk15on:1.58',
             'com.amazonaws:aws-encryption-sdk-java:1.3.1',
+            'com.amazonaws:aws-java-sdk-kms:1.11.277',
             'uk.gov.ida:verify-event-emitter:' + dependencyVersions.event_emmiter,
             'javax.xml.bind:jaxb-api:2.3.1',
             'com.sun.xml.bind:jaxb-core:2.3.0.1',

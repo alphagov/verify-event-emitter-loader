@@ -12,7 +12,7 @@
       "session_expiry_time": "2019-01-01T12:00:00.000Z",
       "transaction_entity_id": "https://idp-entity-id",
       "minimum_level_of_assurance": "LEVEL_2",
-      "required_level_of_assurance": "LEVEL_2",
+      "preferred_level_of_assurance": "LEVEL_2",
       "principal_ip_address_as_seen_by_hub": "111.222.222.111 10.0.0.1"
     }
   },
@@ -29,7 +29,7 @@
       "session_expiry_time": "2019-01-01T12:00:00.000Z",
       "transaction_entity_id": "https://idp-entity-id",
       "minimum_level_of_assurance": "LEVEL_2",
-      "required_level_of_assurance": "LEVEL_2",
+      "preferred_level_of_assurance": "LEVEL_2",
       "principal_ip_address_as_seen_by_hub": "111.222.222.111 10.0.0.1"
     }
   }
