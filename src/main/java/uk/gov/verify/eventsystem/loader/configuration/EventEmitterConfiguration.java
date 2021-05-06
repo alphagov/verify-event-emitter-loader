@@ -33,6 +33,10 @@ public class EventEmitterConfiguration implements Configuration {
 
     @Valid
     @JsonProperty
+    private String sourceQueueName;
+
+    @Valid
+    @JsonProperty
     private URI apiGatewayUrl;
 
 
@@ -66,6 +70,9 @@ public class EventEmitterConfiguration implements Configuration {
         if (decryptor == null) return Base64.getDecoder().decode(encryptionKey);
         return decryptor.decryptEncryptionKey(encryptionKey);
     }
+
+    @Override
+    public String getSourceQueueName() { return sourceQueueName; }
 
     @Override
     public URI getApiGatewayUrl() { return apiGatewayUrl; }
